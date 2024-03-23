@@ -1,5 +1,6 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 import Token from './token.entity'
+import Task from './task.entity'
 
 @Entity()
 export default class User extends BaseEntity {
@@ -16,5 +17,8 @@ export default class User extends BaseEntity {
   password!: string //colocar criptografia não usar string limpa
 
   @OneToMany(() => Token, token => token.user)
-tokens?: Token[] //pode ter uma lista ou nada não tem problema ser ? ou !
+  tokens?: Token[] //pode ter uma lista ou nada não tem problema ser ? ou !
+
+  @OneToMany(() => Task, task => task.user)
+  tasks!: Task[]
 }

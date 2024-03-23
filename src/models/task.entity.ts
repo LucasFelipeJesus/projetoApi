@@ -1,7 +1,8 @@
-import { BaseEntity, Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import User from "./user.entity";
 
 @Entity()
-export default class Task extends BaseEntity{
+export default class Task extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id!: number
@@ -9,6 +10,12 @@ export default class Task extends BaseEntity{
     @Column()
     title!: string
 
-    @Column({default: false})
+    @Column({ default: false })
     completed!: boolean
+
+    @Column({ name: 'user_id' })
+    userId!: number
+
+    @ManyToOne(() => User, user => user.tasks)
+    user!: User
 }
