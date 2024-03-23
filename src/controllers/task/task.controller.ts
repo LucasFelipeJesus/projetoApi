@@ -16,6 +16,7 @@ export default class TaskController {
         const task = new Task()
         task.title = title
         task.completed = completed ?? false
+        task.userId = Number(userId)
         await task.save()
 
         return res.status(201).json(task)
