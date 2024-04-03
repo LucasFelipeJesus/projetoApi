@@ -5,7 +5,7 @@ const database = new DataSource({
     type: 'sqlite',
     database: './src/database/database.sqlite',
     logging: true,
-    synchronize: false,
+    synchronize: true,
     entities:
         [
             join(__dirname, '..', 'models/*.{ts,js}')
