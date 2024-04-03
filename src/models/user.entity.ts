@@ -7,7 +7,7 @@ export default class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number // se for diferente no banco colocar na Collumn(nome _correto:tipo)
 
-  @Column() //se for possível ser nulo  colocar {nullable: string}
+  @Column({ name: 'names' }) //se for possível ser nulo  colocar {nullable: string}
   name!: string //"!" quando é obrigatório 
 
   @Column()
