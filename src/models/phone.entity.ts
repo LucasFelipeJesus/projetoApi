@@ -10,6 +10,10 @@ export default class Phone extends BaseEntity {
     @Column()
     number!: number
 
+    @Column({ name: 'user_id' })
+    userId!: number
+
     @ManyToOne(() => User, user => user.phones)
     user!: User
+
 }
