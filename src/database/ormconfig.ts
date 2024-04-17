@@ -1,7 +1,8 @@
 import { join } from "path";
 import { DataSource } from "typeorm";
 
-const database = new DataSource({
+
+/*const database = new DataSource({
     type: 'sqlite',
     database: './src/database/database.sqlite',
     logging: true,
@@ -10,53 +11,69 @@ const database = new DataSource({
         [
             join(__dirname, '..', 'models/*.{ts,js}')
         ]
-})
+})*/
 /*
 const db2DataSource = new DataSource({
     type: "mysql",
-    host: "localhost",
+    host: "bd-mysql-01.mysql.database.azure.com",
     port: 3306,
-    username: "root",
-    password: "",
+    username: "lucasjesus01",
+    password: "Caslueisla!",
     database: "api",
-    entities: [__dirname + "/entity/*{.js,.ts}"],
+    ssl: true,
+    // Remove the 'certificate' property from the MysqlConnectionOptions object
+    // certificate: "D:/certificado/BaltimoreCyberTrustRoot.crt.pem",
     synchronize: true,
-})
+    entities:
+        [
+            join(__dirname, '..', 'models/*.{ts,js}')
+        ],
+
+})*/
 
 const db3DataSource = new DataSource({
     type: "mssql",
-    host: "localhost",
+    host: "bd-testes.database.windows.net",
     port: 1433,
-    username: "sa",
-    password: "Caslueisla!@#",
-    database: "Api",
+    username: "lucasjesus01",
+    password: "Caslueisla!",
+    database: "bd-sql-01",
     options: {
-        encrypt: false,
+        encrypt: true,
+        trustServerCertificate: false
 
     },
-    entities: [__dirname + "/entity/*{.js,.ts}"],
+    "logging": true,
     synchronize: true,
+    entities:
+        [
+            join(__dirname, '..', 'models/*.{ts,js}')
+        ]
+
 
 })
-
+/*
 database.initialize()
     .then(() => {
         console.log('Banco Sqlite de Dados inciciado!')
     }).catch(() => {
         console.log('Falha!!! Banco Sqlite de Dados não inciciado!')
     })
-
+*/
+/*
 db2DataSource.initialize()
     .then(() => {
         console.log('Banco Mysql de Dados inciciado!')
     }).catch(() => {
         console.log('Falha!!! Banco Mysql de Dados não inciciado!')
     })
-
+*/
 db3DataSource.initialize()
     .then(() => {
         console.log('Banco SqlServer de Dados inciciado!')
     }).catch(() => {
         console.log('Falha!!! Banco Sqlserver de Dados não inciciado!')
-    })*/
-export default database;// db2DataSource; db3DataSource
+    })
+export default //database; 
+    // db2DataSource;
+    db3DataSource

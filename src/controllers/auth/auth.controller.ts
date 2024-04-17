@@ -116,4 +116,84 @@ export default class AuthController {
     // Retorna uma resposta vazia
     return res.status(204).json()
   }
+
+  static async index(req: Request, res: Response) {
+    const { userId } = req.headers
+
+    if (!userId) return res.status(401).json({ error: 'Usuário não autenticado' })
+    const users = await User.find({ where: { id: Number(userId) } })
+
+    return res.status(200).json(users)
+
+  }
+
+  static async show(req: Request, res: Response) {
+    const { id } = req.params
+    const { userId } = req.headers
+
+    if (!userId) return res.status(401).json({ error: 'Usuário não autenticado' })
+    if (!id || isNaN(Number(id))) {
+      return res.status(400).json({ error: 'O id é obrigatório' })
+    }
+    const user = await User.findOneBy({ id: Number(id) })
+    if (!user) {
+      return res.status(404).json({ erro: 'Usuário não encontrado' })
+    }
+    return res.json(user)
+  }
+
+
+  static async delete(req: Request, res: Response) {
+    const { id } = req.params
+    const { userId } = req.headers
+
+    if (!userId) return res.status(401).json({ error: 'Usuário não autenticado' })
+
+    if (!id || isNaN(Number(id))) {
+      return res.status(400).json({ error: 'O id é obrigatório' })
+    }
+
+    const user = await User.findOneBy({ id: Number(id) })
+
+    if (!user) {
+      return res.status(404).json({ erro: 'Usuário não encontrado' })
+    }
+    user.remove()
+    return res.status(204).json()
+  }
+
+  static async update(req: Request, res: Response) {
+    const { userId } = req.headers
+    const { id } = req.params
+    const { name } = req.body
+    const { email } = req.body
+    const { password } = req.body
+
+    if (!userId) return res.status(401).json({ error: 'Usuário não autenticado' })
+
+    if (!id || isNaN(Number(id))) {
+      return res.status(400).json({ error: 'O id é obrigatório' })
+    }
+    if (!name) {
+      return res.status(400).json({ erro: 'Nome é obrigatório' })
+    }
+    if (!email) {
+      return res.status(400).json({ erro: 'Email é obrigatório' })
+    }
+    if (!password) {
+      return res.status(400).json({ erro: 'Senha é obrigatória' })
+    }
+
+    const user = await User.findOneBy({ id: Number(id), name, email, password })
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' })
+    }
+
+    user.name = name ?? user.name
+    user.email = email ?? user.email
+    user.password = password ?? user.password
+    await user.save()
+    return res.json(user)
+  }
 }

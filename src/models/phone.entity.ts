@@ -8,7 +8,7 @@ export default class Phone extends BaseEntity {
     id!: number
 
     @Column()
-    number!: number
+    number!: string
 
     @Column({ name: 'user_id' })
     userId!: number
