@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import Task from '../../models/task.entity'
+import { MESSAGES } from '@nestjs/core/constants';
+import { info } from 'console';
 
 
 
@@ -63,7 +65,7 @@ export default class TaskController {
         const task = await Task.findOneBy({ id: Number(id), userId: Number(userId) })
 
         if (!task) {
-            return res.status(404).json({ erro: 'Não encontrado' })
+            return res.status(404).json({ error: 'Não encontrado' })
         }
         task.remove()
         return res.status(204).json()
