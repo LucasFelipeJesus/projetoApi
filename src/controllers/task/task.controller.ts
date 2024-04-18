@@ -65,7 +65,7 @@ export default class TaskController {
         const task = await Task.findOneBy({ id: Number(id), userId: Number(userId) })
 
         if (!task) {
-            return res.status(404).json({ error: 'Não encontrado' })
+            return res.status(404).json({ erro: 'Não encontrado' })
         }
         task.remove()
         return res.status(204).json()
