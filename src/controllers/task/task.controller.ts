@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import Task from '../../models/task.entity'
-import { MESSAGES } from '@nestjs/core/constants';
-import { info } from 'console';
+
 
 
 
@@ -61,7 +60,6 @@ export default class TaskController {
         if (!id || isNaN(Number(id))) {
             return res.status(400).json({ error: 'O id é obrigatório!' })
         }
-
         const task = await Task.findOneBy({ id: Number(id), userId: Number(userId) })
 
         if (!task) {
@@ -100,9 +98,6 @@ export default class TaskController {
         task.completed = completed
         await task.save()
         return res.json(task)
-
-
-
     }
 
 
