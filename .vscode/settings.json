@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/1e6297de-1884-4dca-8cd5-eb3703015d96/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/api-fatec-indaiatuba-01",
+    "appService.deploySubpath": "."
+}
