@@ -4,14 +4,18 @@ import express from 'express';
 import db3DataSource from './database/ormconfig'
 import routes from './routes';
 import cors from 'cors';
-
+import cookieParser from 'cookie-parser'
 
 const app = express()
 const port = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(routes)
-app.use(cors())
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://meuapp.com'],
+  credentials: true // Habilita o uso de cookies
+}))
+app.use(cookieParser())
 
 app.listen(port, () => {
   console.log(`Servidor executando na porta ${port}`);

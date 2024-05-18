@@ -3,13 +3,13 @@ import Token from '../models/token.entity'
 
 export default async function authMiddleware
     (req: Request, res: Response, next: NextFunction) {
-    const { authorization } = req.headers //header de requisição deu se o nome de authorization mas pode ser como quiser
-
+    //const { authorization } = req.headers //header de requisição deu se o nome de authorization mas pode ser como quiser
+    const { token } = req.cookies // Busca o token no cookie usando o req.cookies
     //verificar se passou ao token 401 não autorizado 
-    if (!authorization) return res.status(401).json({ error: 'Token não informado' })
+    if (!token) return res.status(401).json({ error: 'Token não informado' })
 
     // Verifica se o token existe
-    const userToken = await Token.findOneBy({ token: authorization })
+    const userToken = await Token.findOneBy({ token })
     if (!userToken) return res.status(401).json({ error: 'Token inválido' })
 
     // Verifica se o token expirou
